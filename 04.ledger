@@ -1,0 +1,51 @@
+# -*- mode: ledger; fill-column: 60 -*-
+
+# Added opening balance (equity)
+
+; At the start of the month
+2017/02/01 Opening balances
+    ; You have Rs 18,500 in your bank
+    Assets:Bank:HDFC           18,500.00
+    ; You have mutual funds worth 30,000
+    Assets:Mutual Fund         30,000.00
+    ; You have fixed deposits worth 50,000
+    Assets:Bank:Fixed Deposit  50,000.00
+    ; You owe 20,000 on your card bill
+    Liabilities:Credit Card   -20,000.00
+    ; Your final capital is
+    ; 18,500 + 30,000 + 50,000 - 20,000
+    ; = 78,500
+    ; Flipping the sign to make it balance
+    Equity:Opening Balance    -78,500.00
+
+2017/02/01 Salary received
+    Assets:Bank:HDFC         100,000.00
+    Income:Salary:Cleartax  -100,000.00
+
+2017/02/02 Mutual Fund Purchase
+    Assets:Mutual Fund     50,000.00
+    Assets:Bank:HDFC      -50,000.00
+
+2017/02/03 Fixed Deposit Interest Received
+    Assets:Bank:HDFC         1,000.00
+    Income:Interest:FD      -1,000.00
+
+2017/02/05 Mobile bill payment
+    Expenses:Bills:Mobile      600.00
+    Liabilities:Credit Card   -600.00
+
+2017/02/06 Rent payment
+    Expenses:Rent           20,000.00
+    Assets:Bank:HDFC       -20,000.00
+
+
+; Run: ledger -f 04.ledger balance
+; Assets - Liabilities = Equity + (Income - Expenses)
+; 179,500 - 20,600 = 78,500 + 101,000 - 20,600
+; 158,900          = 158,900
+; (Note: Take absolute values!)
+
+; 2017/02/10 Credit card payment
+;    Liabilities:Credit Card    20,400.00
+;    Assets:Bank:HDFC          -20,400.00
+

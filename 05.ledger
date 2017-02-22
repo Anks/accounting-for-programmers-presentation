@@ -1,0 +1,57 @@
+# -*- mode: ledger; fill-column: 60 -*-
+
+# Added opening balance (equity)
+
+; At the start of the month
+2017/02/01 Opening balances
+    ; You have Rs 18,500 in your bank
+    Assets:Bank:HDFC           18,500.00
+    ; You have mutual funds worth 30,000
+    Assets:Mutual Fund         30,000.00
+    ; You have fixed deposits worth 50,000
+    Assets:Bank:Fixed Deposit  50,000.00
+    ; You owe 20,000 on your card bill
+    Liabilities:Credit Card   -20,000.00
+    ; Your final capital is
+    ; 18,500 + 30,000 + 50,000 - 20,000
+    ; = 78,500
+    ; Flipping the sign to make it balance
+    Equity:Opening Balance    -78,500.00
+
+2017/02/01 Salary received
+    Assets:Bank:HDFC         100,000.00
+    Income:Salary:Cleartax  -100,000.00
+
+2017/02/02 Mutual Fund Purchase
+    Assets:Mutual Fund     50,000.00
+    Assets:Bank:HDFC      -50,000.00
+
+2017/02/03 Fixed Deposit Interest Received
+    Assets:Bank:HDFC         1,000.00
+    Income:Interest:FD      -1,000.00
+
+2017/02/05 Mobile bill payment
+    Expenses:Bills:Mobile      600.00
+    Liabilities:Credit Card   -600.00
+
+2017/02/06 Rent payment
+    Expenses:Rent           20,000.00
+    Assets:Bank:HDFC       -20,000.00
+
+2017/02/10 Credit card payment
+    Liabilities:Credit Card                20,000.00
+    Assets:Bank:HDFC                      -20,000.00
+
+
+; Let us say you did freelancing for Google
+; On 17th Feb, you sent them an invoice
+; Tag it as income right then an there
+2017/02/17 One-time consulting done for Google
+    Assets:Receivables:Google     50,000.00
+    Income:Consulting            -50,000.00
+
+; You receive payment on 22nd Feb
+;2017/02/22 Payment received from Google
+;    Assets:Bank:HDFC              50,000.00
+;    Assets:Receivables:Google    -50,000.00
+

@@ -1,0 +1,29 @@
+# -*- mode: ledger; fill-column: 60 -*-
+
+# Re-organised the accounts to form an heirarchy
+# and added some more transactions
+
+2017/02/01 Salary received
+    Assets:Bank:HDFC         100,000.00
+    Income:Salary:Cleartax  -100,000.00
+
+2016/02/02 Mutual Fund Purchase
+    Assets:Mutual Fund     50,000.00
+    Assets:Bank:HDFC      -50,000.00
+
+2016/02/03 Fixed Deposit Interest Received
+    Assets:Bank:HDFC         1,000.00
+    Income:Interest:FD      -1,000.00
+
+; Run: ledger -f 03.ledger balance
+; Output:
+;  
+;                101000  Assets
+;                 51000    Bank:HDFC
+;                 50000    Mutual Fund
+;               -101000  Income
+;                 -1000    Interest:FD
+;               -100000    Salary:Cleartax
+;  --------------------
+;                     0
+

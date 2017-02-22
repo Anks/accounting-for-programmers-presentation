@@ -1,0 +1,23 @@
+# -*- mode: ledger; fill-column: 60 -*-
+
+# Quick note:
+#
+# This file used a syntax for a command line accounting
+# software called 'ledger-cli'.
+#
+# Think of it as markdown for accounting
+#
+# There is a command line utility that can run reports on
+# the basis of these transactions.
+
+2017/02/01 Salary received
+    Bank account           100,000.00
+    Salary account        -100,000.00
+
+# Syntax
+#
+#  <Date> Transaction Description
+#    <indentation> <account name> <amount>
+#    <indentation> <account name> <amount>
+
+# Example command: ledger -f 01.ledger balance

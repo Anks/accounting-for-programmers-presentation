@@ -1,0 +1,15 @@
+# -*- mode: ledger; fill-column: 60 -*-
+
+2017/02/01 Salary received
+    Bank account           100,000.00
+    Salary account        -100,000.00
+
+# Adding a second  transaaction
+# This has a mistake, accounts will not balance
+2016/02/02 Mutual Fund Purchase
+    Mutual Fund account    50,000.00
+    Bank account          -50,001.00
+
+# Try: ledger -f 02.ledger balance
+# Fix it by fixing the amount.
+

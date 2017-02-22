@@ -1,0 +1,363 @@
+-*- mode: org; fill-column: 60 -*- 
+
+What you need to know about accounting
+
+(and) Why this will help you be a better engineer
+
+* Introduction
+
+- Why are we talking about accounting? 
+
+- What practical use do you get from this?
+
+- How is accounting related to computer science in any way?
+
+* Rapid intro to double-entry bookkeeping
+
+Accounting is both very simple and very complex. You can
+learn the basics of accounting in 5 minutes.
+
+Case in point: Double-entry bookkeeping (the standard way
+people have been doing accounts) was created in the early
+1300s. (Probably earlier!)
+
+I think any programmer can write a simple accounting system
+in a couple of hours.
+
+** Basic terminology
+
+| Account           | A place where you hold money         |
+| Transaction       | Transfer from one account to another |
+| Journal or Ledger | List of transactions for an account  |
+
+** First Rule of Accounting Thermodynamics
+
+- Every transaction should take money from a source account
+  and move it to a destination account
+
+- Money cannot be created or destroyed — just transferred.
+
+- Just like energy :)
+
+[[file:01.ledger][01.ledger]]
+
+** Second rule: accounts are virtual
+
+- You can make up accounts if you need to!
+
+- In the earlier example, we had two 'accounts'
+  - 'Bank account'
+  - 'Salary account'
+
+- These names do not mean anything. You give them meaning.
+
+- Please note: accounts start with zero balance.
+
+- Current value of your accounts is the effect of all the
+  transactions applied to it.
+
+- But, there are naming conventions in place that you should
+  know about. Just like any programming language, really.
+
+[[file:01.ledger][01.ledger]]
+
+** Third rule: Thou shalt balance your accounts
+
+- At any given time, if you add up your account balances, it
+  should be zero.
+
+- Else you have made a data entry mistake!
+
+[[file:02.ledger][02.ledger]]
+
+** Fourth rule: Organise your accounts!
+
+- Your accounts can form an hierarchy
+
+- Parent account, child accounts, etc
+
+- Balance of parent account is sum of balances of all its
+  child accounts
+
+[[file:03.ledger][03.ledger]]
+
+* Concepts of accounting
+
+Why did we bother to do all of this? Do those rules seem
+counter-intuitive to you? To understand this, you have to
+understand the history of accounting.
+
+** A thought exercise
+
+Ask yourself this:
+
+- Who is the user of an accounting system?
+- Why do they use an accounting system?
+
+And then think about:
+
+- How much information does this person have?
+- Do you maintain accounts for yourself or also for the
+  people you have business dealings with?
+
+** Context
+
+This system arose out of a need to track transactions when
+you have imperfect data.
+
+Accounting is fundamentally private. You do not know what
+some merchant you are doing business with has in their
+books. You only keep track of accounts from your point of
+view!
+
+In my opinion: this is accounting's biggest flaw and also
+its biggest strength.
+
+(I'm no accountant though, so this is an outsider's
+perspective!)
+
+You use accounts to keep track of information that's
+relevant to you.
+
+Different people have different sets of accounts.
+
+This is a distributed system!
+
+** Shared Vocabulary
+
+Over time, people started to come up with accounting
+standards: shared (and precise) vocabulary in order to
+communicate an idea clearly.
+
+This told people how to structure their accounts.
+
+Example: This lets a banker understand a merchant's books,
+so they can decide whether it's safe to give them a loan.
+
+Example: This lets accountants move from company to company,
+and be able to understand what's happening
+
+*** Credit / Debit
+
+Traditional accounting systems actually try to avoid
+negative numbers. They use the words credit or debit
+instead. 
+
+Credit / debit have different meaning when applied to
+different contexts, and different people.
+
+(I myself get confused about this, often, and have avoided
+usage of these terms)
+
+*** Standard Accounting Heads
+
+You will usually see accounts divided into 5 headings:
+
+| Equity (or Capital) | Typically your opening balances |
+| Assets              | What you own                    |
+| Liability           | What you owe someone else       |
+| Incomes             | What you earn                   |
+| Expenses            | What you spend                  |
+
+Also, you may run into 'accounting equations' like:
+
+*Assets - Liabilities = Equity + (Income - Expenses)*
+
+or, simplified,
+
+*Assets - Liabilities = Equity*
+
+Example of this: [[file:04.ledger][04.ledger]]
+
+
+*** Accrual based accounting
+
+This is a fun topic.
+
+Thought exercise:
+
+- If you are selling something, when do you actually show
+  the transaction?
+
+- Is it when you make the sale, or when you receive the
+  money?
+
+'Accrual basis' is the standard everyone uses. This means
+that you should account for a sale when you make it, not
+when you receive it.
+
+You use a 'receivables' category in your accounts to show
+this is money that's yours, but not actually in your hand.
+
+See [[file:05.ledger][05.ledger]] for an example.
+
+** Detailed Example
+
+Enough theory! Let us take a more detailed example.
+
+[[file:05.ledger][05.ledger]]
+
+Why is this useful?
+
+There are standard reports:
+
+- *Balance sheet*, which reports assets vs liabilities
+
+  Use: hledger -f 05.ledger balancesheet
+
+  This tells you what you are worth, basically.
+
+- *P&L*, (also called income statement)
+  
+  This gives you a view on your income vs. expenses.
+
+  Are you earning more than you are spending, or vice versa.
+
+  Use: hledger -f 05.ledger incomestatement
+  
+- *Cashflow Statement*
+
+  This shows you how much cash you have in hand.
+
+  Basically, assets - receivables
+
+  You may have money on paper, but can you actually afford
+  something?
+
+  For a business, there is a big difference between their
+  income and their cashflow. They may on paper have a lot of
+  profit (and may need to pay tax on it), but may not
+  actually have any money on hand!
+
+* Learnings from an engineering perspective
+
+** Standards matter, Simplicity matters
+
+1% of accounting is learning how it works.
+
+99% of accounting is understanding the standards that people
+have built on top of it.
+
+Accounting follows a lot of rules, but the core on which it
+is built is small.
+
+A lot of computer systems are built the same way :)
+
+** Immutability
+
+Basically, once you have written a transaction in a ledger,
+it is final. You cannot erase it, you cannot undo it.
+
+If you do want to undo it, you will add a 'reverse
+transaction'. 
+
+You can think of accounting in functional programming
+terminology. Each transaction is a fact, and the balance of
+an account is the result of doing 'map / reduce' type work
+on top of it.
+
+(As a company, if you keep modifying your accounts, you
+would probably end up in jail for fraud.)
+
+** Replicated Ledgers, knowing half the story
+
+You do not know the whole truth. You only know your side of
+the story.
+
+For every real world transactions, different systems will
+represent it in different manner.
+
+Your accounting system could say:
+
+#+BEGIN_EXAMPLE
+2017/02/01 Salary received
+    Assets:Bank:HDFC         100,000.00
+    Income:Salary:Cleartax  -100,000.00
+#+END_EXAMPLE
+
+While your company's account could say:
+
+#+BEGIN_EXAMPLE
+2017/02/01 Distribute salary to all employees
+    Expenses:Salary:Employee 1     100,000.00
+    Expenses:Salary:Employee 2     100,000.00
+    Assets:Bank:Current Account   -200,000.00
+#+END_EXAMPLE
+
+The bank's internal accounts would probably say something
+else.
+
+In the real world, you do not have perfect knowledge. You
+just have your version of the truth, which may differ from
+others' version.
+
+This is basically a distributed system.
+
+Getting people to agree is a hard problem to solve.
+
+Accounting solves this by using things like transaction
+identifiers (what do you think a bill number or an invoice
+number is?), and frequent reconciliation.
+
+Accountants will try to make sure that your comapny's
+accounts (books of accounts, virtual) is matching the bank
+accounts (real money) on a periodic basis. 
+
+This is a job computers can excel at!
+
+
+** Example: Bank account systems
+
+How do you think the banking system actually works?
+
+- Say that you have Rs. 20,000 in your bank
+- You go to an ATM withdraw Rs 10,000
+- You have outstanding credit card dues worth Rs 12,000
+- You have set up 'autopay' for your card
+- The card bill is due today
+- The auto-pay transaction triggers at midnight
+
+What should happen?
+
+- It depends on the bank in question
+- Your bank may not yet know that you have withdrawn Rs
+  10,000, and may make a transfer of Rs 12,000 for your card
+  payment 
+- Your balance may go in negative
+- Some other process at the bank would see this, and then
+  automatically reverse the transfer
+- Things may get more complex as multiple banks enter the
+  picture. Sometimes transactions get reversed, sometimes
+  you have to pay a fine, etc.
+
+This seems crazy, but this is how the world works :)
+
+Think of it as:
+
+- git add
+- git commit
+
+Your transaction may not be 'final' until some
+reconciliation process happens.
+
+You can relate this to the CAP theorem if you prefer:
+
+- Banking would go for Availability (do not stop business)
+
+- and Partition Tolerance (banks have physically separate
+  branches, different banks have different systems, some may
+  not always be online)
+
+- while sacrificing Consistency (you could withdraw more
+  than you have)
+
+* References
+
+- http://martin.kleppmann.com/2011/03/07/accounting-for-computer-scientists.html
+- https://blogs.msdn.microsoft.com/pathelland/2007/06/14/accountants-dont-use-erasers/
+- http://www.ledger-cli.org/3.0/doc/ledger3.html
+- http://hledger.org/
+- https://www.petekeen.net/keeping-finances-with-ledger
+- http://plaintextaccounting.org/
+- https://docs.google.com/document/d/100tGcA4blh6KSXPRGCZpUlyxaRUwFHEvnz_k9DyZFn4/edit
+- https://en.wikipedia.org/wiki/Double-entry_bookkeeping_system
